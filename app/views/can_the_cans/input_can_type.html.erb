@@ -1,0 +1,44 @@
+<input type="text" id="can_my_cans">
+<button id="get-the-type">See if I can can the uncanny can.</button>
+<br /><br /><br />
+<div id="can-results">
+  <div id="can-sentence"></div><br />
+
+
+  <div id="outside-can-1">
+    <div class="can-1">
+
+    </div>
+    <br /><br />
+  </div>
+</div>
+<script type="text/javascript">
+    $('#get-the-type').click(function(){
+        $.each($('[id^="outside-can-"]'), function(index, div){
+            if(index != 0){
+                div.remove();
+            }
+        });
+        var sentence = $('#can_my_cans').val();
+        $('#can-sentence').text(sentence);
+        $.get('/get_can_type/' + sentence, function(data){
+            if(data.length == 0){
+                $('.can-1').text("There's no cans in your can sentence!")
+            } else {
+                $.each(data, function(index, datum){
+                    if (index == 0){
+                        $('.can-1').text('The first can\'s pos seems to be: ' + datum['pos']);
+                    } else {
+                        var $next_result = $('#outside-can-1').clone();
+                        $next_result.attr('id', 'outside-can-' + (index+1).toString());
+                        $next_result.find('.can-1').text('The can at position ' + datum['index'] + ' is: ' + datum['pos']);
+                        $('#outside-can-' + index.toString()).after($next_result);
+                    }
+
+                })
+            }
+
+        })
+    })
+
+</script>
