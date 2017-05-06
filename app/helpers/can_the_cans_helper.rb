@@ -32,6 +32,7 @@ module CanTheCansHelper
     ambig = ['this', 'that', 'his',]
 
     meaning = {}
+    debugger
     if index_to_parse == 0
       if !cleaned_word_arr[1] == 'is'
         meaning['pos'] = 'verb'
