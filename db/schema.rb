@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507153254) do
+ActiveRecord::Schema.define(version: 20170507174517) do
 
   create_table "grammar_constructions", force: :cascade do |t|
     t.string   "formula"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20170507153254) do
     t.string   "language"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "base_word_id"
+    t.index ["base_word_id"], name: "index_words_on_base_word_id"
   end
 
 end
